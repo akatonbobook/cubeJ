@@ -6,19 +6,16 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
 
 public class Server {
     private final int MAX_THREAD = 20;
-    private final int port;
     private final ExecutorService pool;
     private final ServerCube cube;
 
     Server(int port, int n) throws IOException {
-        this.port = port;
         cube = new ServerCube(n);
         pool = Executors.newFixedThreadPool(MAX_THREAD);
         try (ServerSocket socket = new ServerSocket(port)) {

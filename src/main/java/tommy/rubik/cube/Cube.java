@@ -5,7 +5,7 @@ import java.awt.*;
 public abstract class Cube implements ICube {
 
     protected final Color[] colors;
-    protected final int N;
+    protected int N;
     protected Parts[][][] parts;
 
     public Cube(int n) {
