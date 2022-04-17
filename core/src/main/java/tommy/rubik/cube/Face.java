@@ -9,7 +9,7 @@ public enum Face {
     DOWN(5);
 
     private final int id;
-    private Face(int id) {
+    Face(int id) {
         this.id = id;
     }
 

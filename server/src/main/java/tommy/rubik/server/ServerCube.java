@@ -1,13 +1,23 @@
-package tommy.rubik.cube;
+package tommy.rubik.server;
+
+import tommy.rubik.cube.Cube;
+import tommy.rubik.cube.RotateDirection;
 
 public class ServerCube extends Cube {
 
-    ServerCube(int n) {
+    public ServerCube(int n) {
         super(n);
         createCube();
     }
 
+    @Override
+    protected void changeN(int n) {
+        N = n;
+        createCube();
+    }
+
     private void createCube() {
+        parts = new ServerParts[N][N][N];
         for (int x=0; x<N; x++) {
             for (int y=0; y<N; y++) {
                 for (int z=0; z<N; z++) {
@@ -25,6 +35,7 @@ public class ServerCube extends Cube {
                 }
             }
         }
+        fireCubeCreated();
     }
 
     protected class ServerPanel extends Panel {
@@ -107,7 +118,7 @@ public class ServerCube extends Cube {
                 parts[x][i][r].rotateX(rd);
                 parts[x][r][N-i-1].rotateX(rd);
                 parts[x][N-i-1][N-r-1].rotateX(rd);
-                parts[x][r][N-i-1].rotateX(rd);
+                parts[x][N-r-1][i].rotateX(rd);
             }
             if (x != 0 && x != N-1) break;
         }
@@ -143,7 +154,7 @@ public class ServerCube extends Cube {
     public void rotateZLayer(int z, RotateDirection rd) {
         Parts p;
         for (int r=0; r<N/2; r++) {
-            for (int i=0; i<N-r-1; i++) {
+            for (int i=r; i<N-r-1; i++) {
                 p = parts[i][r][z];
                 if (rd == RotateDirection.FORWARD) {
                     parts[i][r][z] = parts[r][N-i-1][z];
@@ -163,5 +174,10 @@ public class ServerCube extends Cube {
             }
             if (z != 0 && z != N-1) break;
         }
+    }
+
+    @Override
+    public void close() {
+
     }
 }

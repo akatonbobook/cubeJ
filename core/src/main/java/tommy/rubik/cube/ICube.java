@@ -4,7 +4,7 @@ import java.awt.*;
 
 public interface ICube {
 
-    static Color[] WORLD_COLORS = new Color[] {
+    Color[] WORLD_COLORS = new Color[] {
             new Color(0x00A800),
             new Color(0x0065FF),
             new Color(0xFF2A00),
@@ -16,4 +16,6 @@ public interface ICube {
     void rotateXLayer(int x, RotateDirection rd);
     void rotateYLayer(int y, RotateDirection rd);
     void rotateZLayer(int z, RotateDirection rd);
+
+    void close();
 }
